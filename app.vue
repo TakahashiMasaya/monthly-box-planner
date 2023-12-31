@@ -1,8 +1,7 @@
 <template>
   <div>
-    <div v-for="month in 12" :key="month">
+    <div class="page" v-for="month in 12" :key="month">
       <Month :year="year" :month="month" />
-      <div class="pagebreak"></div>
     </div>
   </div>
 </template>
@@ -17,8 +16,18 @@ body {
   * {
     box-sizing: border-box;
   }
-  .pagebreak {
-    break-after: page;
-  }
+}
+
+@page {
+    size: A4 portrait;
+    margin: 0mm;
+}
+
+.page{
+	width: 210mm;
+	height: 297mm;
+	box-sizing: border-box;
+	padding: 10mm;
+  page-break-after: always;
 }
 </style>

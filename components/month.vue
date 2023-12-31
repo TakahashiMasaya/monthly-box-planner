@@ -1,6 +1,9 @@
 <template>
-  <div>
-    <div class="monthName">{{ `${props.month}` }}</div>
+  <div class="container">
+    <div class="header">
+      <span>{{ `${props.month}` }}</span>
+      <span>{{ props.year }}</span>
+    </div>
     <div class="calendar">
       <!-- Add weekday headers -->
       <div class="day weekday" v-for="weekday in weekdays" :key="weekday">
@@ -28,7 +31,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import * as holiday_jp from '@holiday-jp/holiday_jp';
+import dayjs from 'dayjs';
 
 const props = defineProps<{
   year: number,
@@ -44,26 +48,32 @@ const firstDayOfWeek = computed(() => {
 
 const daysInMonth = computed(() => new Date(props.year, props.month, 0).getDate());
 
-const isHoliday = (day: number) => day === 1;
+const isHoliday = (day: number): boolean => {
+  const holidays = holiday_jp.between(new Date(`${props.year}-01-01`), new Date(`${props.year}-12-31`));
+  return holidays.some((holiday) => dayjs(holiday.date).format('YYYY-MM-DD') === dayjs(`${props.year}-${props.month}-${day.toString()}`).format('YYYY-MM-DD'));
+}
 </script>
 
 <style lang="scss" scoped>
-.monthName {
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.header {
   font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 1rem;
   padding: 1rem 0;
+  display: flex;
+  justify-content: space-between;
 }
 .calendar {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: 2rem repeat(6, 1fr);
+  grid-template-rows: 1.5rem repeat(6, 1fr);
   gap: 0;
   padding: 0;
-  background-color: #f8f8f8;
-  border-radius: 1em;
-  height: 842px;
-
+  height: 100%;
   .day {
     display: flex;
     justify-content: left;
@@ -72,13 +82,17 @@ const isHoliday = (day: number) => day === 1;
     border: 1px solid #555555;
     border-right: none;
     border-bottom: none;
-    padding: 0 1rem;
+    padding: 0 0.1rem;
     font-weight: bold;
+    color: #999999;
+    &.saturday, &.sunday, &.holiday {
+      color: #555555;
+    }
     &:not(.weekday) {
       background-image:
-    linear-gradient(0deg, #eee 1px, transparent 1px),
-    linear-gradient(90deg, #eee 1px, transparent 1px);
-    background-size: 20% 12.5%; /* This creates a 5x5 grid. Adjust as needed. */
+      linear-gradient(0deg, #eee 1px, transparent 1px),
+      linear-gradient(90deg, #eee 1px, transparent 1px);
+      background-size: 20% 12.5%; /* This creates a 5x5 grid. Adjust as needed. */
     }
     &:nth-child(7n) {
       border-right: 1px solid #555555;
@@ -91,7 +105,7 @@ const isHoliday = (day: number) => day === 1;
   .weekday {
     background-color: #ddd;
     color: #555;
-    height: 2rem;
+    height: 1.5rem;
     justify-content: center;
     align-items: center;
   }
