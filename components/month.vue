@@ -31,8 +31,9 @@
 </template>
 
 <script setup lang="ts">
-import * as holiday_jp from '@holiday-jp/holiday_jp';
+import pkg from '@holiday-jp/holiday_jp';
 import dayjs from 'dayjs';
+const { between } = pkg;
 
 const props = defineProps<{
   year: number,
@@ -49,7 +50,7 @@ const firstDayOfWeek = computed(() => {
 const daysInMonth = computed(() => new Date(props.year, props.month, 0).getDate());
 
 const isHoliday = (day: number): boolean => {
-  const holidays = holiday_jp.between(new Date(`${props.year}-01-01`), new Date(`${props.year}-12-31`));
+  const holidays = between(new Date(`${props.year}-01-01`), new Date(`${props.year}-12-31`));
   return holidays.some((holiday) => dayjs(holiday.date).format('YYYY-MM-DD') === dayjs(`${props.year}-${props.month}-${day.toString()}`).format('YYYY-MM-DD'));
 }
 </script>
