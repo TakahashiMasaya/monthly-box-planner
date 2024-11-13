@@ -9,13 +9,16 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
+  "dependencies": {
+    "@nuxt/icon": "^1.7.2",
+    "@nuxt/ui": "^2.19.2",
+    "nuxt": "^3.14.159",
+    "vue": "latest",
+    "vue-router": "latest"
+  },
   "devDependencies": {
     "@holiday-jp/holiday_jp": "^2.4.0",
     "@nuxt/devtools": "^1.6.0",
-    "dayjs": "^1.11.13",
-    "nuxt": "^3.14.159",
-    "sass": "^1.80.6",
-    "vue": "^3.5.12",
-    "vue-router": "^4.4.5"
+    "dayjs": "^1.11.13"
   }
 }

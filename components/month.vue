@@ -55,11 +55,12 @@ const isHoliday = (day: number): boolean => {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .container {
   display: flex;
   flex-direction: column;
   height: 100%;
+  max-width: inherit;
 }
 .header {
   font-size: 1.5rem;

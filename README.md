@@ -2,15 +2,6 @@
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-## Set Year
-
-set year box-planner you want in app.vue
-```.js
-<script setup lang="ts">
-const year = 2024 // <- you want year
-</script>
-```
-
 ## Setup
 
 Make sure to install the dependencies:
