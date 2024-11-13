@@ -1,7 +1,7 @@
 <template>
   <div class="select-year" v-if="showType === 'selectYear'">
-    <h2 class="text-3xl font-bold">input year to create monthly calendar.</h2>
-    <p class="p-2">This app is compatible with Chrome and Firefox only.</p>
+    <h2 class="text-3xl font-bold">Select year to create monthly calendar.</h2>
+    <p class="p-2">This app is compatible with Chrome(strongly recommended) and Firefox.</p>
     <u-button-group orientation="horizontal" size="xl" >
       <u-select v-model="year" :options="yearList" />
       <u-button @click="createMonthly">
