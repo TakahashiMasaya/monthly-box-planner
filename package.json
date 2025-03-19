@@ -19,6 +19,8 @@
   "devDependencies": {
     "@holiday-jp/holiday_jp": "^2.4.0",
     "@nuxt/devtools": "2.0.0-beta.3",
-    "dayjs": "^1.11.13"
+    "@nuxt/eslint": "^0.7.5",
+    "dayjs": "^1.11.13",
+    "eslint": "^9.18.0"
   }
 }

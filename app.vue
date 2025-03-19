@@ -1,23 +1,58 @@
 <template>
-  <div class="select-year" v-if="showType === 'selectYear'">
-    <h2 class="text-3xl font-bold">Select year to create monthly calendar.</h2>
-    <p class="p-2">This app is compatible with Chrome(strongly recommended) and Firefox.</p>
-    <u-button-group orientation="horizontal" size="xl" >
-      <u-select v-model="year" :options="yearList" />
+  <div
+    v-if="showType === 'selectYear'"
+    class="select-year"
+  >
+    <h2 class="text-3xl font-bold">
+      Select year to create monthly calendar.
+    </h2>
+    <p class="p-2">
+      This app is compatible with Chrome(strongly recommended) and Firefox.
+    </p>
+    <u-button-group
+      orientation="horizontal"
+      size="xl"
+    >
+      <u-select
+        v-model="year"
+        :options="yearList"
+      />
       <u-button @click="createMonthly">
         create calendar
       </u-button>
     </u-button-group>
   </div>
   <div v-else>
-    <div class="page" v-for="month in 12" :key="month">
-      <Month :year="year" :month="month" />
+    <div
+      v-for="month in 12"
+      :key="month"
+      class="page"
+    >
+      <Month
+        :year="year"
+        :month="month"
+      />
     </div>
-    <u-button-group orientation="horizontal" size="xl" class="fixed bottom-10 left-10 print:hidden" shadows="shadow-xl">
-      <u-button @click="showPrint" icon="pepicons-print:printer" block class="ext-2xl">
+    <u-button-group
+      orientation="horizontal"
+      size="xl"
+      class="fixed bottom-10 left-10 print:hidden"
+      shadows="shadow-xl"
+    >
+      <u-button
+        icon="pepicons-print:printer"
+        block
+        class="ext-2xl"
+        @click="showPrint"
+      >
         print
       </u-button>
-      <u-button @click="showType = 'selectYear'" icon="pepicons:arrow-left" block class="ext-2xl">
+      <u-button
+        icon="pepicons:arrow-left"
+        block
+        class="ext-2xl"
+        @click="showType = 'selectYear'"
+      >
         back
       </u-button>
     </u-button-group>
@@ -31,18 +66,19 @@
 </template>
 
 <script setup lang="ts">
-import dayjs from 'dayjs';
+import dayjs from 'dayjs'
+
 const colorMode = useColorMode()
 const year = ref<number>(dayjs().year())
 const yearList = Array.from({ length: 10 }, (_, i) => year.value + i)
 const showType = ref<'selectYear' | 'createdYear'>('selectYear')
 const isDark = computed({
-  get () {
+  get() {
     return colorMode.value === 'dark'
   },
-  set () {
+  set() {
     colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
-  }
+  },
 })
 // 印刷
 const showPrint = () => {
@@ -76,10 +112,10 @@ body {
 }
 
 .page {
-	width: 210mm;
-	height: 297mm;
-	box-sizing: border-box;
-	padding: 10mm;
+  width: 210mm;
+  height: 297mm;
+  box-sizing: border-box;
+  padding: 10mm;
 }
 .page:not(:first-child) {
   page-break-before: always;

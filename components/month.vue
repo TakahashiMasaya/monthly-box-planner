@@ -6,52 +6,65 @@
     </div>
     <div class="calendar">
       <!-- Add weekday headers -->
-      <div class="day weekday" v-for="weekday in weekdays" :key="weekday">
+      <div
+        v-for="weekday in weekdays"
+        :key="weekday"
+        class="day weekday"
+      >
         {{ weekday }}
       </div>
       <!-- Add empty days at the start of the month -->
-      <div class="day empty" v-for="n in firstDayOfWeek" :key="`empty-${n}`"></div>
+      <div
+        v-for="n in firstDayOfWeek"
+        :key="`empty-${n}`"
+        class="day empty"
+      />
       <!-- Add actual days of the month -->
-      <div 
-        class="day" 
-        v-for="(day, index) in daysInMonth" 
+      <div
+        v-for="(day, index) in daysInMonth"
         :key="day"
-        :class="{ 
-          'saturday': (index + firstDayOfWeek) % 7 === 5, // Saturday is now the 5th day of the week
-          'sunday': (index + firstDayOfWeek) % 7 === 6, // Sunday is now the 6th day of the week
-          'holiday': isHoliday(day) 
+        class="day"
+        :class="{
+          saturday: (index + firstDayOfWeek) % 7 === 5, // Saturday is now the 5th day of the week
+          sunday: (index + firstDayOfWeek) % 7 === 6, // Sunday is now the 6th day of the week
+          holiday: isHoliday(day),
         }"
       >
         {{ day }}
       </div>
       <!-- Add empty days at the end of the month -->
-      <div class="day empty" v-for="n in ((7 * 6) - firstDayOfWeek - daysInMonth)" :key="`empty-end-${n}`"></div>
+      <div
+        v-for="n in ((7 * 6) - firstDayOfWeek - daysInMonth)"
+        :key="`empty-end-${n}`"
+        class="day empty"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import pkg from '@holiday-jp/holiday_jp';
-import dayjs from 'dayjs';
-const { between } = pkg;
+import pkg from '@holiday-jp/holiday_jp'
+import dayjs from 'dayjs'
+
+const { between } = pkg
 
 const props = defineProps<{
-  year: number,
-  month: number,
+  year: number
+  month: number
 }>()
 
-const weekdays = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+const weekdays = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
 
 const firstDayOfWeek = computed(() => {
-  const day = new Date(props.year, props.month - 1, 1).getDay();
-  return day === 0 ? 6 : day - 1; // Convert Sunday to 6 and shift other days by 1
-});
+  const day = new Date(props.year, props.month - 1, 1).getDay()
+  return day === 0 ? 6 : day - 1 // Convert Sunday to 6 and shift other days by 1
+})
 
-const daysInMonth = computed(() => new Date(props.year, props.month, 0).getDate());
+const daysInMonth = computed(() => new Date(props.year, props.month, 0).getDate())
 
 const isHoliday = (day: number): boolean => {
-  const holidays = between(new Date(`${props.year}-01-01`), new Date(`${props.year}-12-31`));
-  return holidays.some((holiday) => dayjs(holiday.date).format('YYYY-MM-DD') === dayjs(`${props.year}-${props.month}-${day.toString()}`).format('YYYY-MM-DD'));
+  const holidays = between(new Date(`${props.year}-01-01`), new Date(`${props.year}-12-31`))
+  return holidays.some(holiday => dayjs(holiday.date).format('YYYY-MM-DD') === dayjs(`${props.year}-${props.month}-${day.toString()}`).format('YYYY-MM-DD'))
 }
 </script>
 
