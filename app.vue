@@ -58,8 +58,18 @@
     </u-button-group>
   </div>
   <u-button
-    :icon="isDark ? 'i-heroicons-moon-20-solid' : 'i-heroicons-sun-20-solid'"
+    v-if="isDark"
+    :icon="'i-heroicons-moon'"
     size="xl"
+    variant="solid"
+    class="fixed bottom-10 right-10 print:hidden"
+    @click="isDark = !isDark"
+  />
+  <u-button
+    v-else
+    :icon="'i-heroicons-sun'"
+    size="xl"
+    variant="solid"
     class="fixed bottom-10 right-10 print:hidden"
     @click="isDark = !isDark"
   />
@@ -72,14 +82,16 @@ const colorMode = useColorMode()
 const year = ref<number>(dayjs().year())
 const yearList = Array.from({ length: 10 }, (_, i) => year.value + i)
 const showType = ref<'selectYear' | 'createdYear'>('selectYear')
-const isDark = computed({
-  get() {
-    return colorMode.value === 'dark'
-  },
-  set() {
-    colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
-  },
-})
+// const isDark = computed({
+//   get() {
+//     return colorMode.value === 'dark'
+//   },
+//   set() {
+//     colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
+//   },
+// })
+const isDark = ref(false)
+
 // 印刷
 const showPrint = () => {
   window.print()
@@ -88,6 +100,13 @@ const showPrint = () => {
 const createMonthly = () => {
   showType.value = 'createdYear'
 }
+watch(isDark, () => {
+  colorMode.preference = isDark.value ? 'dark' : 'light'
+})
+onMounted(() => {
+  colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
+  isDark.value = colorMode.value === 'dark'
+})
 </script>
 
 <style scoped>
