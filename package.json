@@ -9,7 +9,9 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint:fix": "eslint --fix .",
-    "test": "vitest"
+    "test": "vitest",
+    "storybook": "storybook dev",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@nuxt/icon": "^1.14.0",
@@ -20,15 +22,20 @@
   },
   "devDependencies": {
     "@holiday-jp/holiday_jp": "^2.5.1",
-    "@nuxt/devtools": "2.5.0",
+    "@nuxt/devtools": "2.6.2",
     "@nuxt/eslint": "^1.4.1",
     "@nuxt/test-utils": "^3.19.1",
+    "@nuxtjs/storybook": "^8.4.1",
+    "@storybook/addon-docs": "^9.0.16",
+    "@storybook/addon-links": "^9.0.16",
     "@vue/test-utils": "^2.4.6",
     "dayjs": "^1.11.13",
     "eslint": "^9.29.0",
+    "eslint-plugin-storybook": "^9.0.16",
     "happy-dom": "^18.0.1",
     "knip": "^5.61.2",
     "playwright-core": "^1.53.1",
+    "storybook": "^9.0.16",
     "vitest": "^3.2.4"
   }
 }
