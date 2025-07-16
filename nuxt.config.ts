@@ -5,7 +5,6 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@nuxt/eslint',
     '@nuxt/test-utils/module',
-    '@nuxtjs/storybook',
   ],
   devtools: { enabled: true },
   css: ['@/assets/css/main.css'],
@@ -19,10 +18,5 @@ export default defineNuxtConfig({
     config: {
       stylistic: true,
     },
-  },
-  storybook: {
-    // Options
-    host: 'http://localhost:6007',
-    port: 6007,
   },
 })

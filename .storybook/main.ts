@@ -1,4 +1,6 @@
-import type { StorybookConfig } from '@storybook-vue/nuxt'
+import type { StorybookConfig } from '@storybook/vue3-vite'
+import vue from '@vitejs/plugin-vue'
+import { resolve } from 'path'
 
 const config: StorybookConfig = {
   stories: [
@@ -10,8 +12,19 @@ const config: StorybookConfig = {
     '@storybook/addon-docs',
   ],
   framework: {
-    name: '@storybook-vue/nuxt',
+    name: '@storybook/vue3-vite',
     options: {},
+  },
+  staticDirs: ['../assets'],
+  async viteFinal(config) {
+    config.plugins = config.plugins ?? []
+    config.plugins.push(vue())
+    config.resolve = config.resolve ?? {}
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': resolve(__dirname, '../'),
+    }
+    return config
   },
 }
 export default config

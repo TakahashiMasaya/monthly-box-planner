@@ -43,6 +43,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import pkg from '@holiday-jp/holiday_jp'
 import dayjs from 'dayjs'
 
