@@ -1,5 +1,5 @@
 node = "lts"
-pnpm = "latest"
+bun = "latest"
 
 [settings]
 auto-clean = true
